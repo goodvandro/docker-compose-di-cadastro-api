@@ -6,7 +6,7 @@ services:
     container_name: database_integration
     restart: always
     ports:
-      - 5433:5132
+      - 5434:5432
     environment:
       - POSTGRES_USER=diteiws
       - POSTGRES_PASSWORD=ditei2022ws
@@ -20,7 +20,7 @@ services:
     ports:
       - 8081:8080
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://database_integration:5432/integration
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database_integration:5434/integration
       - SPRING_DATASOURCE_USERNAME=diteiws
       - SPRING_DATASOURCE_PASSWORD=ditei2022ws
     links:
