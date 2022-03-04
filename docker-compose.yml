@@ -1,0 +1,33 @@
+version: "3.7"
+
+services:
+  database_integration:
+    image: postgres
+    container_name: database_integration
+    restart: always
+    ports:
+      - 5433:5132
+    environment:
+      - POSTGRES_USER=diteiws
+      - POSTGRES_PASSWORD=ditei2022ws
+      - POSTGRES_DB=integration
+    volumes:
+      - pgdata:/data/postgres
+  app_integration:
+    image: otaniel/integration:0.0.9
+    container_name: app_cadastro
+    restart: always
+    ports:
+      - 8081:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://database_integration:5432/integration
+      - SPRING_DATASOURCE_USERNAME=diteiws
+      - SPRING_DATASOURCE_PASSWORD=ditei2022ws
+    links:
+      - database_integration
+    depends_on:
+      - database_integration
+
+volumes:
+  pgdata:
+    driver: local
